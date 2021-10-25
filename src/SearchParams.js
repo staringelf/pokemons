@@ -3,7 +3,6 @@ import Results from "./Results.js";
 
 const TYPES = ["fire", "poison", "electric", "water", "ice"];
 const localCache = {};
-window.localCache = localCache;
 
 const SearchParams = () => {
   
