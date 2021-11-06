@@ -41,8 +41,6 @@ class Details extends Component {
       }
     }
 
-    throw new Error('hi')
-
     return (
       <div className="details">
         <Carousel images={images}/>
