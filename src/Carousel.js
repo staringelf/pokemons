@@ -7,15 +7,36 @@ class Carousel extends Component {
     images: ["/images/pokemons-default.jpg"]
   }
 
-  render () {
+  handleIndexClick = (event) => {
+    let target = event.target;
+    if (target.matches('img')){
+      target = target.parentNode;
+    }
+    this.setState({ active: +target.dataset.index })
+  }
 
+  render () {
+    const { active } = this.state
     const { images } = this.props;
 
     return (
       <div className="carousel">
-      {images.map(image => (
-        <img src={image} alt="pokemon-image" />
-      ))}
+        <div className="pokemon-hero">
+          <img src={images[active]} alt="pokemon" />
+        </div>
+        <div className="pokemon-thumbnails">
+          {images.map((image, index) => (
+            <div className={`pokemon-thumbnail ${index === active ? "active" : ""}`} 
+                 data-index={index}
+                 onClick={this.handleIndexClick}
+                 key={image}>
+              <img 
+                src={image} 
+                alt="pokemon-thumbnail" 
+              />
+            </div>
+          ))}
+        </div>
       </div>
     )
   }

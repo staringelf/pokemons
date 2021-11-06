@@ -27,9 +27,7 @@ class Details extends Component {
       return <h2>loading...</h2>;
     }
 
-    const { name, sprites, abilities, types } = this.state;
-
-    const { other } = sprites;
+    const { name, sprites : { other }, abilities, types } = this.state;
     
     const images = [];
 
@@ -45,9 +43,6 @@ class Details extends Component {
     return (
       <div className="details">
         <Carousel images={images}/>
-        <div className="image-container">
-          
-        </div>
         <h2>{name}</h2>
         <p>{abilities.map(abilityData => abilityData.ability.name).join(' - ')}</p>
         <p>{types.map(typeData => typeData.type.name).join(', ')}</p>

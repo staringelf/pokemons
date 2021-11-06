@@ -1,3 +1,57 @@
-.pokemon-card h3 {
+* {
+  box-sizing: border-box;
+}
+
+.details h2 {
   text-transform: capitalize;
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  align-items: center;
+  gap: 50px;
+}
+
+.pokemon-hero {
+  height: 400px;
+  display: flex;
+}
+
+.pokemon-hero img {
+  margin: auto;
+  object-fit: contain;
+  width: 100%;
+}
+
+.pokemon-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pokemon-thumbnail {
+  cursor: pointer;
+  border-radius: 200px;
+  overflow: hidden;
+  width: 120px;
+  height: 120px;
+  border: 8px solid white;
+  background-color: palegoldenrod;
+}
+
+.pokemon-thumbnail img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.pokemon-thumbnail.active {
+  opacity: 1;
+  border-color: mistyrose;
 }
