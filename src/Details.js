@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import ErrorBoundary from "./ErrorBoundary.js";
 import Carousel from "./Carousel.js";
+import Sidebar from "./Sidebar.js";
 
 class Details extends Component {
   state = { loading: true };
@@ -24,6 +25,9 @@ class Details extends Component {
   }
 
   render () {
+
+    console.log(this.state);
+
     if (this.state.loading === true){
       return <h2>loading...</h2>;
     }
@@ -31,6 +35,8 @@ class Details extends Component {
     const { name, sprites : { other }, abilities, types } = this.state;
     
     const images = [];
+
+
 
     for (const key of Object.keys(other)) {
       for (const keyInner of Object.keys(other[key])){
@@ -42,11 +48,18 @@ class Details extends Component {
     }
 
     return (
-      <div className="details">
-        <Carousel images={images}/>
-        <h2>{name}</h2>
-        <p>{abilities.map(abilityData => abilityData.ability.name).join(' - ')}</p>
-        <p>{types.map(typeData => typeData.type.name).join(', ')}</p>
+      <div>
+        <div className="details">
+          <Carousel images={images}/>
+          <h2>{name}</h2>
+          <p>{abilities.map(abilityData => abilityData.ability.name).join(' - ')}</p>
+          <p>{types.map(typeData => typeData.type.name).join(', ')}</p>
+        </div>
+        <Sidebar types={types} >
+          <div>
+            <h1>hi</h1>
+          </div>
+        </Sidebar>
       </div>
     )
   }
