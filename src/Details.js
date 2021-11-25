@@ -6,22 +6,62 @@ import Carousel from "./Carousel.js";
 import Sidebar from "./Sidebar.js";
 
 class Details extends Component {
-  state = { loading: true };
+  state = { loading: true, pokemons: [] };
 
   async componentDidMount () {
     // console.log('Mount', this.props);
-    const res = await fetch (
+
+    const pokeRes = await fetch (
       `https://pokeapi.co/api/v2/pokemon/${this.props.match.params.name}`
     );
 
-    const json = await res.json();
+
+    // if (this.state.loading){
+    // }
+
+    // relatedTypes.forEach( async (type) => {
+    //   const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+    //   const json = await res.json();
+    //   console.log(json);
+    // });
+
+    const pokeJson = await pokeRes.json();
 
     this.setState(
       Object.assign(
-        { loading: false },
-        json
+        { loading: false},
+        pokeJson
       )
-    ) 
+    )
+    
+    const relatedTypes = this.state.types.map(typeData => typeData.type.name);
+    const relatedPokemons = this.requestPokemons(relatedTypes);
+
+    
+    // this.setState(
+    //   Object.assign(
+    //     { loading: false,
+    //       relatedPokemons: relatedPokemons },
+    //     pokeJson
+    //   )
+    // )
+  }
+
+  requestPokemons (types) {
+  
+    const relatedPokemons = {};
+    
+    types.forEach( async (type) => {
+      const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+      const { pokemon: pokemons } = await res.json();
+      if (!relatedPokemons[type]){
+        relatedPokemons[type] = pokemons;
+      }
+    });
+
+    return relatedPokemons;
+
+
   }
 
   render () {
@@ -33,10 +73,8 @@ class Details extends Component {
     }
 
     const { name, sprites : { other }, abilities, types } = this.state;
-    
+
     const images = [];
-
-
 
     for (const key of Object.keys(other)) {
       for (const keyInner of Object.keys(other[key])){
@@ -55,7 +93,7 @@ class Details extends Component {
           <p>{abilities.map(abilityData => abilityData.ability.name).join(' - ')}</p>
           <p>{types.map(typeData => typeData.type.name).join(', ')}</p>
         </div>
-        <Sidebar types={types} >
+        <Sidebar>
           <div>
             <h1>hi</h1>
           </div>
